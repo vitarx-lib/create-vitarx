@@ -1,0 +1,31 @@
+{
+  "name": "create-vitarx",
+  "version": "1.0.0-alpha.0",
+  "author": "ZhuChongLin <8210856@qq.com>",
+  "license": "MIT",
+  "keywords": [
+    "vitarx",
+    "create-vitarx"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vitarx-lib/cli"
+  },
+  "homepage": "https://vitarx.cn",
+  "type": "module",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "index.mjs"
+  ]
+}

@@ -113,8 +113,8 @@ export async function promptForOptions(
 
   // 只有当命令行没有指定选项时，才添加到多选列表中
   if (options.typescript === undefined) {
-    selectChoices.push({ title: 'TypeScript', value: 'typescript', selected: true })
-    selectChoices.push({ title: 'JavaScript', value: 'javascript', selected: false })
+    selectChoices.push({ title: 'TypeScript', value: 'typescript' })
+    selectChoices.push({ title: 'JavaScript', value: 'javascript' })
   }
 
   let selectedFeatures: string[] = []
@@ -123,9 +123,8 @@ export async function promptForOptions(
     const result = await prompts({
       type: 'select',
       name: 'script',
-      message: '请选择项目要使用的语言:',
-      choices: selectChoices,
-      initial: 1
+      message: '项目语言:',
+      choices: selectChoices
     })
 
     selectedFeatures = result.script

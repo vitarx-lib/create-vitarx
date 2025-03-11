@@ -1,0 +1,75 @@
+import '@/assets/site-link.css'
+import { RouterLink } from 'vitarx-router'
+
+export default function AboutPage() {
+  return (
+    <div className='container about-container'>
+      <header className='app-header'>
+        <h1>关于 VitaRX</h1>
+        <nav>
+          <RouterLink to='/' className='nav-link'>
+            返回首页
+          </RouterLink>
+        </nav>
+      </header>
+
+      <main>
+        <div className='card'>
+          <h2>什么是 VitaRX?</h2>
+          <p>
+            VitaRX 是一个创新的前端框架，它结合了 Vue 的响应式系统和 React 的 JSX
+            语法的优点，为开发者提供了一种全新的开发体验。
+          </p>
+          <p>
+            通过 VitaRX，您可以使用熟悉的 JSX 语法来构建组件，同时享受 Vue 响应式系统的简洁和高效。
+          </p>
+        </div>
+
+        <div className='card'>
+          <h2>主要特性</h2>
+          <ul>
+            <li>结合 Vue 的响应式系统和 React 的 JSX 语法</li>
+            <li>简洁的 API 设计，易于学习和使用</li>
+            <li>高性能渲染引擎</li>
+            <li>内置路由系统，支持懒加载</li>
+            <li>完全类型化的 API，提供良好的 TypeScript 支持</li>
+            <li>轻量级，无需大量依赖</li>
+          </ul>
+        </div>
+
+        <div className='card'>
+          <h2>开始使用</h2>
+          <p>VitaRX 框架设计简洁，易于上手。您可以通过以下步骤快速开始：</p>
+          <ol>
+            <li>
+              安装 VitaRX: <code>npm install vitarx</code>
+            </li>
+            <li>
+              安装路由插件: <code>npm install vitarx-router</code>
+            </li>
+            <li>
+              配置 Vite 构建工具: <code>npm install @vitarx/vite-bundler</code>
+            </li>
+            <li>创建您的第一个组件并开始构建应用</li>
+          </ol>
+          <p>
+            查看更多文档和示例，请访问我们的
+            <a
+              href='https://vitarx.cn'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='site-link'
+            >
+              官方网站
+            </a>
+            。
+          </p>
+        </div>
+      </main>
+
+      <footer className='card' style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <p>VitaRX 框架 © 2025 - 现代化前端开发的新选择</p>
+      </footer>
+    </div>
+  )
+}

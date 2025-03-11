@@ -1,0 +1,12 @@
+import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vite'
+import vitarx from '@vitarx/vite-bundler'
+
+export default defineConfig({
+  plugins: [vitarx()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+})

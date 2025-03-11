@@ -1,0 +1,17 @@
+import { ref } from 'vitarx'
+
+export default function Counter() {
+  const count = ref(0)
+
+  return (
+    <div className="counter-container card">
+      <h2>响应式计数器示例</h2>
+      <div className="counter-display">{count}</div>
+      <div className="counter-controls">
+        <button onClick={() => count.value--}>减少</button>
+        <button onClick={() => count.value = 0}>重置</button>
+        <button onClick={() => count.value++}>增加</button>
+      </div>
+    </div>
+  )
+}

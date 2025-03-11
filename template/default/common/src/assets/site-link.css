@@ -1,0 +1,35 @@
+/* 官方网站链接样式 */
+.site-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+  padding-bottom: 2px;
+  position: relative;
+}
+
+.site-link:hover {
+  color: #16a29c;
+  border-bottom-color: #16a29c;
+}
+
+.site-link:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* 暗黑模式下的样式增强 */
+@media (prefers-color-scheme: dark) {
+  .site-link {
+    color: #2ee8e0; /* 在暗黑模式下使用更亮的颜色 */
+    text-shadow: 0 0 2px rgba(28, 190, 183, 0.3); /* 添加轻微发光效果 */
+  }
+  
+  .site-link:hover {
+    color: #4aeee7;
+    border-bottom-color: #4aeee7;
+    text-shadow: 0 0 4px rgba(28, 190, 183, 0.5);
+  }
+}

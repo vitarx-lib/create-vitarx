@@ -1,0 +1,51 @@
+import { RouterLink } from 'vitarx-router'
+import vitarxLogo from '@/assets/vitarx.svg'
+// 导入 Vite logo 图片资源
+import viteLogo from '@/assets/vite.svg'
+import Counter from '@/widgets/Counter'
+
+export default function AppHomePage() {
+  return (
+    <div className='container'>
+      <header className='app-header'>
+        <div className='logo-container'>
+          <img src={vitarxLogo} alt='VitaRX logo' className='logo' />
+          <img src={viteLogo} alt='Vite logo' className='logo' />
+        </div>
+        <nav>
+          <RouterLink to='home' className='nav-link'>
+            首页
+          </RouterLink>
+          <RouterLink to='about' className='nav-link'>
+            关于
+          </RouterLink>
+        </nav>
+      </header>
+
+      <main>
+        <div className='card'>
+          <h1>欢迎使用 VitaRX 框架</h1>
+          <p>VitaRX 是一个现代化的前端框架，结合了 Vue 的响应式系统和 React 的 JSX 语法。</p>
+        </div>
+        <Counter />
+        <div className='features'>
+          <div className='feature-card card'>
+            <div className='feature-icon'>⚡</div>
+            <h3 className='feature-title'>高性能</h3>
+            <p>基于现代化的响应式系统，提供卓越的性能体验</p>
+          </div>
+          <div className='feature-card card'>
+            <div className='feature-icon'>🔄</div>
+            <h3 className='feature-title'>响应式</h3>
+            <p>简洁的响应式API，轻松构建交互式应用</p>
+          </div>
+          <div className='feature-card card'>
+            <div className='feature-icon'>🚀</div>
+            <h3 className='feature-title'>易于使用</h3>
+            <p>结合JSX语法和Vue API的优势，提供友好的开发体验</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}

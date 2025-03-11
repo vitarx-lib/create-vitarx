@@ -1,0 +1,10 @@
+import { ref } from 'vitarx'
+import { RouterView } from 'vitarx-router'
+
+export default function App() {
+  return (
+    <div>
+      <RouterView />
+    </div>
+  )
+}

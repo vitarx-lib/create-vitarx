@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { blue, green, yellow, dim } from 'kolorist'
+import { blue, green, dim, yellow, cyan } from 'kolorist'
 import generateProject from './generator/index.js'
 import { promptForOptions } from './prompt.js'
 
@@ -17,27 +17,20 @@ export async function createProject(projectName: string | undefined, options: Re
   // 确保目标目录存在
   fs.ensureDirSync(resolvedOptions.targetDir)
 
-  console.log('\n' + dim('─'.repeat(60)))
-  console.log(
-    `${yellow('»')} 正在创建项目 ${green(projectName || '')} 在:\n  ${blue(resolvedOptions.targetDir)}`
-  )
-  console.log(dim('─'.repeat(60)))
-
+  console.log(cyan('\n  🚀 初始化项目：') + green(projectName || resolvedOptions.packageName))
+  console.log(cyan('  📂 目标路径：') + blue(resolvedOptions.targetDir) + '\n')
   // 创建项目
   await generateProject(resolvedOptions)
+  console.log('  ✨ 项目创建成功！')
+  console.log(yellow('\n  📝 后续步骤：'))
+  console.log(dim('  ──────────────────────────────────────'))
 
-  // 显示完成信息
-  console.log('\n' + dim('─'.repeat(60)))
-  console.log(`${green('✓')} 项目创建成功！`)
-  console.log('\n' + yellow('»') + ' 下一步操作:')
-  console.log(dim('─'.repeat(60)))
   if (!projectName?.includes('.')) {
-    console.log(`  ${blue('$')} ${green('cd')} ${resolvedOptions.packageName}`)
+    console.log(`  ${green('cd')} ${resolvedOptions.packageName}`)
   }
-  console.log(`  ${blue('$')} ${green('git init')}`)
-  console.log(`  ${blue('$')} ${green('git add .')}`)
-  console.log(`  ${blue('$')} ${green('git commit -m "Initial commit"')}`)
-  console.log(`  ${blue('$')} ${green('npm install')} ${dim('(或 yarn)')}`)
-  console.log(`  ${blue('$')} ${green('npm run dev')} ${dim('(或 yarn dev)')}`)
-  console.log(dim('─'.repeat(60)) + '\n')
+  console.log(`  git init && git add -A && git commit -m "Initial commit"`)
+  console.log(`  npm install ${dim('# 或使用 yarn')}`)
+  console.log(`  npm run dev  ${dim('# 或使用 yarn dev')}\n`)
+
+  console.log(yellow('  🎉 开始享受 VitaRx 的开发之旅吧！\n'))
 }

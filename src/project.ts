@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { blue, green } from 'kolorist'
+import { green, yellow } from 'kolorist'
 import generateProject from './generator/index.js'
 import { promptForOptions } from './prompt.js'
 
@@ -17,7 +17,7 @@ export async function createProject(projectName: string | undefined, options: Re
   // 确保目标目录存在
   fs.ensureDirSync(resolvedOptions.targetDir)
 
-  console.log(`\n正在创建项目 ${green(projectName || '')} 在 ${blue(resolvedOptions.targetDir)}...`)
+  console.log(yellow(`\n正在创建项目 ${green(projectName || '')} ...`))
 
   // 创建项目
   await generateProject(resolvedOptions)

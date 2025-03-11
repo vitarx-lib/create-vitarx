@@ -1,33 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "Node16",
-    // 开启类型声明文件的生成
-    "declaration": true,
-    // JavaScript 文件输出目录
-    "outDir": "dist",
-    // 开启严格模式（可选）
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "strict": true,
-    // 模块解析策略
-    "moduleResolution": "node16",
-    // 启用模块间互操作
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "esModuleInterop": true,
-    // 跳过库文件检查（可选）
+    "lib": ["ESNext"],
     "skipLibCheck": true,
-    // 是否编译文件
-    "noEmit": true,
-    // 删除注释
-    "removeComments": false,
-    // 确保覆盖重写
-    "noImplicitOverride": true,
-    // 不允许未使用的变量
-    "noUnusedLocals": false,
-    // 不允许使用js文件
-    "allowJs": false,
-    // 确保文件名大小写一致
-    "forceConsistentCasingInFileNames": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "outDir": "dist",
+    "rootDir": "src"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist","template"]
 }

@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+index.cjs
 *.local
 package-lock.json
 

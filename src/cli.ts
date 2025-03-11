@@ -20,8 +20,6 @@ export function initCLI() {
     .description('创建一个新的vitarx项目')
     .argument('[project-name]', '项目名称')
     .option('-t, --typescript', '使用TypeScript')
-    .option('-r, --router', '使用Router')
-    .option('-p, --prettier', '使用Prettier')
     .option('-f, --force', '强制覆盖已存在的目录')
     .action(async (projectName: string | undefined, options: Record<string, any>) => {
       try {

@@ -4,14 +4,17 @@
   "description": "CLI工具，用于快速创建vitarx项目",
   "type": "module",
   "bin": {
-    "create-vitarx": "dist/index.cjs"
+    "create-vitarx": "index.cjs"
   },
   "files": [
-    "dist",
-    "template"
+    "template",
+    "LICENSE",
+    "README.md",
+    "index.cjs"
   ],
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "test": "npm run build && node index.cjs"
   },
   "keywords": [
     "vitarx",
@@ -23,7 +26,7 @@
   "author": "",
   "license": "MIT",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

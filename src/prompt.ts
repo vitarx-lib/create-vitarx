@@ -80,31 +80,31 @@ export async function promptForOptions(
     })
     projectName = res.projectName
   }
-
   // 处理特殊情况：当前目录
   if (projectName === '.' || projectName === './') {
     targetDir = cwd
   } else {
     targetDir = path.resolve(cwd, projectName!)
-  }
+    if (fs.existsSync(targetDir)) {
+      if (!options.force) {
+        const { action } = await prompts({
+          type: 'select',
+          name: 'action',
+          message: `目标目录 ${projectName} 已存在。请选择操作:`,
+          choices: [
+            { title: '覆盖', value: 'overwrite', description: '覆盖会删除目录下的所有文件！' },
+            { title: '取消', value: 'cancel' }
+          ]
+        })
 
-  // 检查目标目录是否已存在
-  let overwrite: boolean = !!options.force
-  if (!overwrite && fs.existsSync(targetDir)) {
-    const { action } = await prompts({
-      type: 'select',
-      name: 'action',
-      message: `目标目录 ${targetDir} 已存在。请选择操作:`,
-      choices: [
-        { title: '覆盖', value: 'overwrite', description: '覆盖会删除目录下的所有文件！' },
-        { title: '取消', value: 'cancel' }
-      ]
-    })
-
-    if (action === 'cancel') {
-      throw new Error('项目创建已取消')
-    } else {
-      await fs.remove(targetDir)
+        if (action === 'cancel') {
+          throw new Error('项目创建已取消')
+        } else {
+          await fs.remove(targetDir)
+        }
+      } else {
+        await fs.remove(targetDir)
+      }
     }
   }
 
@@ -129,10 +129,23 @@ export async function promptForOptions(
 
     selectedFeatures = result.script
   }
+
+  // 添加模板选择
+  const templateChoices: Choice[] = [
+    { title: '默认模板', value: 'default', description: '基础的VitaRx项目模板' }
+  ]
+
+  const templateResult = await prompts({
+    type: 'select',
+    name: 'template',
+    message: '项目模板:',
+    choices: templateChoices
+  })
+
   return {
     packageName: projectName!,
     targetDir,
-    template: 'default', // 暂时固定为默认模板
+    template: templateResult.template || 'default',
     typescript: options.typescript ?? selectedFeatures.includes('typescript') ?? false
   }
 }

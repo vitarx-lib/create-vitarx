@@ -15,7 +15,8 @@ const __dirname = fileURLToPath(path.dirname(import.meta.url))
  * @throws {Error} 当模板不存在时抛出异常
  */
 export default async function generateProject(options: ProjectOptions) {
-  const templateDir = path.join(__dirname, `../../template/${options.template}`)
+  // 打包过后脚本位置处于 dist/index.js，所以只需要 ../，而不是../../
+  const templateDir = path.join(__dirname, `template/${options.template}`)
   if (!fs.existsSync(templateDir)) {
     throw new Error(`模板 ${options.template} 不存在`)
   }

@@ -1,8 +1,10 @@
 import { Command } from 'commander'
 import fs from 'fs-extra'
 import { red } from 'kolorist'
+import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { createProject } from './project.js'
+const __dirname = fileURLToPath(path.dirname(import.meta.url))
 // 版本信息从package.json中获取
 const packageJson = fs.readJSONSync(path.resolve(__dirname, '../package.json'))
 

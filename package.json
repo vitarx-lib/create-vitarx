@@ -1,6 +1,6 @@
 {
   "name": "create-vitarx",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "CLI工具，用于快速创建vitarx项目",
   "type": "module",
   "bin": {

@@ -1,4 +1,4 @@
-import { defineRoutes, lazy } from 'vitarx-router'
+import { defineRoutes } from 'vitarx-router'
 import AppHomePage from '@/pages/Home/index.js'
 
 const routes = defineRoutes(
@@ -10,7 +10,7 @@ const routes = defineRoutes(
   {
     path: '/about',
     name: 'about',
-    widget: lazy(() => import('@/pages/About/index.js'))
+    widget: () => import('@/pages/About/index.js')
   }
 )
 

@@ -10,12 +10,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "vitarx": "^1.1.0",
-    "vitarx-router": "^1.0.2"
+    "vitarx": "^2.0.0",
+    "vitarx-router": "^2.0.1"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
     "vite": "^6.0.1",
-    "@vitarx/vite-bundler": "^1.0.1"
+    "@vitarx/vite-bundler": "^1.0.3"
   }
 }

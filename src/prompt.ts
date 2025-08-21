@@ -1,6 +1,6 @@
-import prompts, { type Choice } from 'prompts'
-import path from 'path'
 import fs from 'fs-extra'
+import path from 'path'
+import prompts, { type Choice } from 'prompts'
 
 /**
  * 命令行选项接口
@@ -47,7 +47,7 @@ function validateProjectName(input: string): boolean | string {
   }
 
   // 检查是否包含非法字符（Windows和Unix系统的文件名限制）
-  const invalidChars = /[<>:"/\\|?*\0]/
+  const invalidChars = /[<>:"/\\|?*\x00]/
   if (invalidChars.test(input) && input !== '.' && input !== './') {
     return '项目名称包含非法字符'
   }

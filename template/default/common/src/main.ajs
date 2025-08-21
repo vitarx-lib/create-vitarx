@@ -3,4 +3,4 @@ import '@/assets/style.css'
 import App from './App.js'
 import router from './router/index.js'
 
-createApp('#root').render(App).use(router)
+createApp(App).use(router).mount('#root')

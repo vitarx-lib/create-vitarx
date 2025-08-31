@@ -6,7 +6,7 @@ import prompts from 'prompts'
  * 命令行选项接口
  */
 export interface CommandLineOptions {
-  ts?: boolean
+  typescript?: boolean
   force?: boolean
 }
 
@@ -109,7 +109,7 @@ export async function promptForOptions(
   let selectedFeatures: string[] = []
 
   // 只有当命令行没有指定选项时，才添加到多选列表中
-  if (options.ts === undefined) {
+  if (options.typescript === undefined) {
     const result = await prompts({
       type: 'select',
       name: 'script',
@@ -135,6 +135,6 @@ export async function promptForOptions(
     packageName: projectName!,
     targetDir,
     template,
-    typescript: options.ts ?? selectedFeatures.includes('typescript') ?? false
+    typescript: options.typescript ?? selectedFeatures.includes('typescript') ?? false
   }
 }

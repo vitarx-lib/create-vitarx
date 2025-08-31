@@ -1,14 +1,12 @@
 import fs from 'fs-extra'
 import path from 'path'
-import prompts, { type Choice } from 'prompts'
+import prompts from 'prompts'
 
 /**
  * 命令行选项接口
  */
 export interface CommandLineOptions {
-  typescript?: boolean
-  router?: boolean
-  prettier?: boolean
+  ts?: boolean
   force?: boolean
 }
 
@@ -108,44 +106,35 @@ export async function promptForOptions(
     }
   }
 
-  // 收集其他配置选项
-  const selectChoices: Choice[] = []
-
-  // 只有当命令行没有指定选项时，才添加到多选列表中
-  if (options.typescript === undefined) {
-    selectChoices.push({ title: 'TypeScript', value: 'typescript' })
-    selectChoices.push({ title: 'JavaScript', value: 'javascript' })
-  }
-
   let selectedFeatures: string[] = []
 
-  if (selectChoices.length > 0) {
+  // 只有当命令行没有指定选项时，才添加到多选列表中
+  if (options.ts === undefined) {
     const result = await prompts({
       type: 'select',
       name: 'script',
       message: '项目语言:',
-      choices: selectChoices
+      choices: [
+        { title: 'TypeScript', value: 'typescript' },
+        { title: 'JavaScript', value: 'javascript' }
+      ]
     })
-
     selectedFeatures = result.script
   }
 
-  // 添加模板选择
-  const templateChoices: Choice[] = [
-    { title: '默认模板', value: 'default', description: '基础的VitaRx项目模板' }
-  ]
-
+  // 添加模板选项
   const templateResult = await prompts({
     type: 'select',
     name: 'template',
     message: '项目模板:',
-    choices: templateChoices
+    choices: [{ title: '默认模板', value: 'default', description: '基础的Vitarx项目模板' }]
   })
 
+  const template = templateResult.template || 'default'
   return {
     packageName: projectName!,
     targetDir,
-    template: templateResult.template || 'default',
-    typescript: options.typescript ?? selectedFeatures.includes('typescript') ?? false
+    template,
+    typescript: options.ts ?? selectedFeatures.includes('typescript') ?? false
   }
 }

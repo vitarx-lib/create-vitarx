@@ -5,7 +5,7 @@ export default function AboutPage() {
   return (
     <div className='container about-container'>
       <header className='app-header'>
-        <h1>关于 VitaRX</h1>
+        <h1>关于 Vitarx</h1>
         <nav>
           <RouterLink to='/' className='nav-link'>
             返回首页
@@ -15,13 +15,13 @@ export default function AboutPage() {
 
       <main>
         <div className='card'>
-          <h2>什么是 VitaRX?</h2>
+          <h2>什么是 Vitarx?</h2>
           <p>
-            VitaRX 是一个创新的前端框架，它结合了 Vue 的响应式系统和 React 的 JSX
+            Vitarx 是一个创新的前端框架，它结合了 Vue 的响应式系统和 React 的 JSX
             语法的优点，为开发者提供了一种全新的开发体验。
           </p>
           <p>
-            通过 VitaRX，您可以使用熟悉的 JSX 语法来构建组件，同时享受 Vue 响应式系统的简洁和高效。
+            通过 vitarx，您可以使用熟悉的 JSX 语法来构建组件，同时享受 Vue 响应式系统的简洁和高效。
           </p>
         </div>
 
@@ -39,10 +39,10 @@ export default function AboutPage() {
 
         <div className='card'>
           <h2>开始使用</h2>
-          <p>VitaRX 框架设计简洁，易于上手。您可以通过以下步骤快速开始：</p>
+          <p>vitarx 框架设计简洁，易于上手。您可以通过以下步骤快速开始：</p>
           <ol>
             <li>
-              安装 VitaRX: <code>npm install vitarx</code>
+              安装 vitarx: <code>npm install vitarx</code>
             </li>
             <li>
               安装路由插件: <code>npm install vitarx-router</code>
@@ -68,7 +68,7 @@ export default function AboutPage() {
       </main>
 
       <footer className='card' style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <p>VitaRX 框架 © 2025 - 现代化前端开发的新选择</p>
+        <p>vitarx 框架 © 2025 - 现代化前端开发的新选择</p>
       </footer>
     </div>
   )

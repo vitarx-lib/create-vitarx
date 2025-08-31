@@ -9,7 +9,7 @@ export default function AppHomePage() {
     <div className='container'>
       <header className='app-header'>
         <div className='logo-container'>
-          <img src={vitarxLogo} alt='VitaRX logo' className='logo' />
+          <img src={vitarxLogo} alt='vitarx logo' className='logo' />
           <img src={viteLogo} alt='Vite logo' className='logo' />
         </div>
         <nav>
@@ -24,8 +24,8 @@ export default function AppHomePage() {
 
       <main>
         <div className='card'>
-          <h1>欢迎使用 VitaRX 框架</h1>
-          <p>VitaRX 是一个现代化的前端框架，结合了 Vue 的响应式系统和 React 的 JSX 语法。</p>
+          <h1>欢迎使用 vitarx 框架</h1>
+          <p>vitarx 是一个现代化的前端框架，结合了 Vue 的响应式系统和 React 的 JSX 语法。</p>
         </div>
         <Counter />
         <div className='features'>

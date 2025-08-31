@@ -1,4 +1,4 @@
-/* Global styles for VitaRX demo app */
+/* Global styles for vitarx demo app */
 :root {
   --primary-color: #1cbeb7;
   --secondary-color: #f54448;
@@ -170,15 +170,15 @@ button.secondary:hover {
   .logo {
     height: 40px;
   }
-  
+
   .features {
     grid-template-columns: 1fr;
   }
-  
+
   .card {
     padding: 1.5rem;
   }
-  
+
   .counter-display {
     font-size: 2.5rem;
   }

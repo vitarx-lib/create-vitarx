@@ -1,6 +1,6 @@
 # create-vitarx
 
-一个用于快速创建 VitaRX 项目的命令行工具。
+一个用于快速创建 Vitarx 项目的命令行工具。
 
 ## 功能特性
 
@@ -41,8 +41,8 @@ yarn create vitarx
 默认模板包含以下特性：
 
 - 基于 Vite 的开发环境
-- VitaRX 核心框架
-- VitaRX Router 路由支持
+- Vitarx 核心框架
+- Vitarx Router 路由支持
 - 代码格式化配置
 - 开发服务器热重载
 

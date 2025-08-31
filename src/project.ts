@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { blue, green, dim, yellow, cyan } from 'kolorist'
+import { blue, cyan, dim, green, yellow } from 'kolorist'
 import generateProject from './generator/index.js'
 import { promptForOptions } from './prompt.js'
 
@@ -32,5 +32,5 @@ export async function createProject(projectName: string | undefined, options: Re
   console.log(`  npm install ${dim('# 或使用 yarn')}`)
   console.log(`  npm run dev  ${dim('# 或使用 yarn dev')}\n`)
 
-  console.log(yellow('  🎉 开始享受 VitaRx 的开发之旅吧！\n'))
+  console.log(yellow('  🎉 开始享受 vitarx 的开发之旅吧！\n'))
 }

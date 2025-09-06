@@ -8,10 +8,5 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  },
-  optimizeDeps: {
-    // 由于 vitarx runtime-core 包使用了大量的类继承语法，
-    // 导致依赖优化时类定义顺序出现颠倒，无法运行，暂且先排除优化。
-    exclude: ['vitarx']
   }
 })

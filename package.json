@@ -1,6 +1,6 @@
 {
   "name": "create-vitarx",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0",
   "description": "CLI工具，用于快速创建vitarx项目",
   "type": "module",
   "bin": {
@@ -21,7 +21,7 @@
     "build": "tsc && vite build",
     "test": "pnpm run build && node index.cjs",
     "prepublishOnly": "npm run build",
-    "push": "pnpm publish --access=public"
+    "push": "pnpm publish --access=public --registry https://registry.npmjs.org/"
   },
   "keywords": [
     "vitarx",

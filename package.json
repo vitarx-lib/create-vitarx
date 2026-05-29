@@ -1,13 +1,13 @@
 {
   "name": "create-vitarx",
   "version": "3.0.0",
-  "description": "CLI工具，用于快速创建vitarx项目",
+  "description": "cli tool for quickly creating vitarx projects",
   "author": "ZhuChongLin <8210856@qq.com>",
   "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vitarx-lib/create-vitarx"
+    "url": "git+https://github.com/vitarx-lib/create-vitarx.git"
   },
   "homepage": "https://vitarx.cn",
   "bin": {

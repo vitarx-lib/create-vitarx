@@ -1,20 +1,15 @@
-import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  // 明确指定为Node环境
-  ssr: {
-    // 将所有Node.js内置模块标记为外部模块
-    noExternal: true
-  },
+  ssr: { noExternal: true },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'cli',
+      entry: resolve(__dirname, 'src/bin/cli.ts'),
       formats: ['cjs'],
       fileName: () => 'index.cjs'
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [
         'commander',
         'fs-extra',
@@ -28,7 +23,6 @@ export default defineConfig({
       ]
     },
     target: 'node18',
-    sourcemap: false,
     outDir: './'
   }
 })

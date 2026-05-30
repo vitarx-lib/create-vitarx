@@ -15,21 +15,15 @@
 npm create vitarx@latest
 ```
 
-或者使用 yarn：
-
-```bash
-yarn create vitarx
-```
-
 ## 使用方法
 
 1. 创建新项目：
 
     ```bash
-    npm create vitarx@latest my-vitarx-app
+    npm create vitarx@latest
     ```
 
-2. 按照提示选择：
+2. 按照提示输入/选择：
    - 项目名称
    - 开发语言（TypeScript/JavaScript）
    - 项目模板
@@ -45,16 +39,6 @@ yarn create vitarx
 - Vitarx Router 路由支持
 - 代码格式化配置
 - 开发服务器热重载
-
-## 命令行选项
-
-```bash
-npm create vitarx@latest [项目名] [选项]
-```
-
-可用选项：
-- `--typescript`: 使用 TypeScript
-- `--force`: 强制覆盖目标目录
 
 ## 开发要求
 

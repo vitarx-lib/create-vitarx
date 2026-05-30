@@ -3,33 +3,54 @@ import path from 'path'
 import prompts from 'prompts'
 
 /**
- * 命令行选项接口
- */
-export interface CommandLineOptions {
-  typescript?: boolean
-  force?: boolean
-}
-
-/**
  * 项目配置选项
  */
 export type ProjectOptions = {
   /**
+   * 根目录
+   */
+  root: string
+  /**
+   * 模板根目录
+   */
+  templateRoot: string
+  /**
    * 项目名称，也是项目包名
    */
-  packageName: string
+  name: string
+  /**
+   * 语言
+   */
+  lang: 'ts' | 'js'
   /**
    * 模板名称
    */
   template: string
   /**
-   * 目标目录
+   * 项目目录
    */
-  targetDir: string
+  projectDir: string
   /**
-   * 是否使用TypeScript
+   * 包管理器
    */
-  typescript: boolean
+  manager: string
+  /**
+   * 模板目录
+   */
+  templateDir: string
+}
+
+/**
+ * 判断目录是否为空
+ *
+ * @param {string} dir - 目录路径
+ * @returns {boolean} 目录为空返回 true，否则返回 false
+ */
+function isDirEmpty(dir: string): boolean {
+  if (!fs.existsSync(dir)) return true
+  if (!fs.statSync(dir).isDirectory()) return false
+  const files = fs.readdirSync(dir)
+  return files.length === 0
 }
 
 /**
@@ -52,89 +73,132 @@ function validateProjectName(input: string): boolean | string {
 
   return true
 }
+/**
+ * 检测当前使用的包管理器
+ *
+ * 优先级：
+ * 1. npm_config_user_agent 环境变量（由 npm/yarn/pnpm/bun 运行时自动设置）
+ * 2. 默认返回 npm
+ *
+ * @returns {string} 包管理器名称（npm | yarn | pnpm | bun）
+ */
+function getPackageManger(): string {
+  const userAgent = process.env.npm_config_user_agent
+
+  if (userAgent) {
+    if (userAgent.includes('pnpm')) return 'pnpm'
+    if (userAgent.includes('yarn')) return 'yarn'
+    if (userAgent.includes('bun')) return 'bun'
+    if (userAgent.includes('npm')) return 'npm'
+  }
+
+  return 'npm'
+}
+/**
+ * 项目名称提示结果
+ */
+type ProjectNameResult = {
+  name: string
+  projectDir: string
+}
 
 /**
- * 收集用户配置选项
+ * 收集项目名称并处理目录冲突
  *
- * @param {string} projectName - 项目名称
- * @param {CommandLineOptions} options - 命令行选项对象
- * @returns {Promise<ProjectOptions>} 返回用户配置选项
+ * @param {string} root - 根目录路径
+ * @returns {Promise<ProjectNameResult>} 项目名称和目录路径
  */
-export async function promptForOptions(
-  projectName: string | undefined,
-  options: CommandLineOptions = {}
-): Promise<ProjectOptions> {
-  const cwd = process.cwd()
-  let targetDir: string
+async function promptForProjectName(root: string): Promise<ProjectNameResult> {
+  const { name } = await prompts({
+    type: 'text',
+    name: 'name',
+    message: '项目名称:',
+    initial: 'vitarx-project',
+    validate: validateProjectName
+  })
 
-  // 处理项目名称
-  if (!projectName) {
-    const res = await prompts({
-      type: 'text',
-      name: 'projectName',
-      message: '项目名称:',
-      initial: 'vitarx-project',
-      validate: validateProjectName
-    })
-    projectName = res.projectName
+  if (name === '.' || name === './') {
+    return { name: path.basename(root), projectDir: root }
   }
-  // 处理特殊情况：当前目录
-  if (projectName === '.' || projectName === './') {
-    targetDir = cwd
-  } else {
-    targetDir = path.resolve(cwd, projectName!)
-    if (fs.existsSync(targetDir)) {
-      if (!options.force) {
-        const { action } = await prompts({
-          type: 'select',
-          name: 'action',
-          message: `目标目录 ${projectName} 已存在。请选择操作:`,
-          choices: [
-            { title: '覆盖', value: 'overwrite', description: '覆盖会删除目录下的所有文件！' },
-            { title: '取消', value: 'cancel' }
-          ]
-        })
 
-        if (action === 'cancel') {
-          throw new Error('项目创建已取消')
-        } else {
-          await fs.remove(targetDir)
-        }
-      } else {
-        await fs.remove(targetDir)
-      }
+  const projectDir = path.resolve(root, name)
+
+  if (!isDirEmpty(projectDir)) {
+    const { action } = await prompts({
+      type: 'select',
+      name: 'action',
+      message: `项目目录 ${name} 已存在且不为空，请确认操作:`,
+      choices: [
+        { title: '覆盖', value: 'overwrite', description: '文件可能会被覆盖' },
+        { title: '终止', value: 'cancel', description: '终止创建项目' }
+      ]
+    })
+
+    if (action === 'cancel') {
+      console.log('项目创建已取消')
+      process.exit(0)
     }
   }
 
-  let selectedFeatures: string[] = []
+  return { name, projectDir }
+}
 
-  // 只有当命令行没有指定选项时，才添加到多选列表中
-  if (options.typescript === undefined) {
-    const result = await prompts({
-      type: 'select',
-      name: 'script',
-      message: '项目语言:',
-      choices: [
-        { title: 'TypeScript', value: 'typescript' },
-        { title: 'JavaScript', value: 'javascript' }
-      ]
-    })
-    selectedFeatures = result.script
-  }
+/**
+ * 收集项目语言选择
+ *
+ * @returns {Promise<'ts' | 'js'>} 语言类型
+ */
+async function promptForLang(): Promise<'ts' | 'js'> {
+  const { lang } = await prompts({
+    type: 'select',
+    name: 'lang',
+    message: '项目语言:',
+    choices: [
+      { title: 'TypeScript', value: 'ts' },
+      { title: 'JavaScript', value: 'js' }
+    ]
+  })
+  return lang
+}
 
-  // 添加模板选项
-  const templateResult = await prompts({
+/**
+ * 收集项目模板选择
+ *
+ * @returns {Promise<string>} 模板名称
+ */
+async function promptForTemplate(): Promise<string> {
+  const { template } = await prompts({
     type: 'select',
     name: 'template',
     message: '项目模板:',
     choices: [{ title: '默认模板', value: 'default', description: '基础的Vitarx项目模板' }]
   })
+  return template
+}
 
-  const template = templateResult.template || 'default'
+/**
+ * 收集用户配置选项
+ *
+ * @param {string} root - 根目录路径
+ * @param {string} templateRoot - 模板根目录路径
+ * @returns {Promise<ProjectOptions>} 返回用户配置选项
+ */
+export async function promptForOptions(
+  root: string,
+  templateRoot: string
+): Promise<ProjectOptions> {
+  const { name, projectDir } = await promptForProjectName(root)
+  const lang = await promptForLang()
+  const template = await promptForTemplate()
+
   return {
-    packageName: projectName!,
-    targetDir,
+    root,
+    templateRoot,
+    templateDir: path.resolve(templateRoot, template),
+    name,
+    projectDir,
     template,
-    typescript: options.typescript ?? selectedFeatures.includes('typescript') ?? false
+    lang,
+    manager: getPackageManger()
   }
 }

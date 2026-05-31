@@ -6,7 +6,7 @@ import { blue, red } from 'kolorist'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { createProject } from '../project.js'
-import { promptForOptions } from '../prompt.js'
+import { CancelError, promptForOptions } from '../prompt.js'
 
 const _dirname =
   typeof __dirname === 'string' ? __dirname : fileURLToPath(path.dirname(import.meta.url))
@@ -27,10 +27,13 @@ export function initCLI(): Command {
       try {
         const root = process.cwd()
         const templateRoot = path.resolve(_dirname, 'templates')
-        // 收集用户配置
         const options = await promptForOptions(root, templateRoot)
         await createProject(options)
       } catch (error) {
+        if (error instanceof CancelError) {
+          console.log(error.message)
+          process.exit(0)
+        }
         console.error(red(`✖ ${error}`))
         process.exit(1)
       }

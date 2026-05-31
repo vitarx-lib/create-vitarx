@@ -3,6 +3,16 @@ import path from 'path'
 import prompts from 'prompts'
 
 /**
+ * 用户取消操作时抛出的错误
+ */
+export class CancelError extends Error {
+  constructor(message = '操作已取消') {
+    super(message)
+    this.name = 'CancelError'
+  }
+}
+
+/**
  * 项目配置选项
  */
 export type ProjectOptions = {
@@ -46,7 +56,7 @@ export type ProjectOptions = {
  * @param {string} dir - 目录路径
  * @returns {boolean} 目录为空返回 true，否则返回 false
  */
-function isDirEmpty(dir: string): boolean {
+export function isDirEmpty(dir: string): boolean {
   if (!fs.existsSync(dir)) return true
   if (!fs.statSync(dir).isDirectory()) return false
   const files = fs.readdirSync(dir)
@@ -59,16 +69,38 @@ function isDirEmpty(dir: string): boolean {
  * @param {string} input - 用户输入的项目名称
  * @returns {boolean | string} 如果有效返回true，否则返回错误信息
  */
-function validateProjectName(input: string): boolean | string {
-  // 检查是否为空
+export function validateProjectName(input: string): boolean | string {
   if (!input.trim()) {
     return '项目名称不能为空'
   }
 
-  // 检查是否包含非法字符（Windows和Unix系统的文件名限制）
-  const invalidChars = /[<>:"/\\|?*\x00]/
-  if (invalidChars.test(input) && input !== '.' && input !== './') {
+  if (input === '.' || input === './') {
+    return true
+  }
+
+  const invalidChars = /[<>:"\\|?*\x00]/
+  if (invalidChars.test(input)) {
     return '项目名称包含非法字符'
+  }
+
+  if (input.includes('/') && !input.startsWith('@')) {
+    return '项目名称包含非法字符'
+  }
+
+  if (input.length > 214) {
+    return '项目名称不能超过 214 个字符'
+  }
+
+  if (input.startsWith('.') || input.startsWith('_')) {
+    return '项目名称不能以 . 或 _ 开头'
+  }
+
+  if (input !== input.toLowerCase() && !input.startsWith('@')) {
+    return '项目名称必须为小写字母'
+  }
+
+  if (/\s/.test(input)) {
+    return '项目名称不能包含空格'
   }
 
   return true
@@ -82,7 +114,7 @@ function validateProjectName(input: string): boolean | string {
  *
  * @returns {string} 包管理器名称（npm | yarn | pnpm | bun）
  */
-function getPackageManger(): string {
+export function getPackageManager(): string {
   const userAgent = process.env.npm_config_user_agent
 
   if (userAgent) {
@@ -135,8 +167,7 @@ async function promptForProjectName(root: string): Promise<ProjectNameResult> {
     })
 
     if (action === 'cancel') {
-      console.log('项目创建已取消')
-      process.exit(0)
+      throw new CancelError('项目创建已取消')
     }
   }
 
@@ -158,7 +189,7 @@ async function promptForLang(): Promise<'ts' | 'js'> {
       { title: 'JavaScript', value: 'js' }
     ]
   })
-  return lang
+  return lang ?? 'ts'
 }
 
 /**
@@ -173,7 +204,7 @@ async function promptForTemplate(): Promise<string> {
     message: '项目模板:',
     choices: [{ title: '默认模板', value: 'default', description: '基础的Vitarx项目模板' }]
   })
-  return template
+  return template ?? 'default'
 }
 
 /**
@@ -199,6 +230,6 @@ export async function promptForOptions(
     projectDir,
     template,
     lang,
-    manager: getPackageManger()
+    manager: getPackageManager()
   }
 }

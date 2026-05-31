@@ -17,6 +17,16 @@ const AUTO_EXT_MAP: Record<string, Record<'ts' | 'js', string>> = {
 }
 
 /**
+ * 语言标识到模板目录名的映射
+ *
+ * 用户选择 'ts' 时对应 'typescript' 目录，'js' 时对应 'javascript' 目录
+ */
+const LANG_DIR_MAP: Record<'ts' | 'js', string> = {
+  ts: 'typescript',
+  js: 'javascript'
+}
+
+/**
  * 解析文件名中的 auto 后缀
  *
  * 注意：不能使用 path.extname()，因为它只返回最后一个后缀（如 .jsx），
@@ -26,7 +36,7 @@ const AUTO_EXT_MAP: Record<string, Record<'ts' | 'js', string>> = {
  * @param {'ts' | 'js'} lang - 语言类型
  * @returns {{ targetExt: string; destFileName: string } | null} 解析结果，非 auto 文件返回 null
  */
-function resolveAutoExt(
+export function resolveAutoExt(
   fileName: string,
   lang: 'ts' | 'js'
 ): { targetExt: string; destFileName: string } | null {
@@ -62,7 +72,7 @@ const CONTENT_EXT_MAP: Record<string, string> = {
  * @param {string} content - 文件内容
  * @returns {string} 替换后的内容
  */
-function replaceAutoExtInContent(content: string): string {
+export function replaceAutoExtInContent(content: string): string {
   for (const [autoExt, targetExt] of Object.entries(CONTENT_EXT_MAP)) {
     content = content.replaceAll(autoExt, targetExt)
   }
@@ -83,7 +93,7 @@ function replaceAutoExtInContent(content: string): string {
  * @param {Record<string, unknown>} source - 源对象
  * @returns {Record<string, unknown>} 合并后的对象
  */
-function deepMergeJson(
+export function deepMergeJson(
   target: Record<string, unknown>,
   source: Record<string, unknown>
 ): Record<string, unknown> {
@@ -109,18 +119,37 @@ function deepMergeJson(
 }
 
 /**
+ * 需要进行内容替换的文本文件扩展名
+ *
+ * 仅对这些扩展名的文件执行 auto 后缀引用替换，
+ * 二进制文件（.ico、.png 等）直接复制，避免 UTF-8 解码损坏
+ */
+const TEXT_EXTENSIONS = new Set(['.js', '.jsx', '.html'])
+
+/**
+ * 判断文件是否为文本文件（基于扩展名）
+ *
+ * @param {string} fileName - 文件名
+ * @returns {boolean} 是文本文件返回 true
+ */
+export function isTextFile(fileName: string): boolean {
+  return TEXT_EXTENSIONS.has(path.extname(fileName).toLowerCase())
+}
+
+/**
  * 复制 common 目录下的文件到项目目录
  *
  * 处理规则：
  * - 目录 → 递归处理子项
  * - .auto.js / .auto.jsx 文件 → 重命名后缀 + 替换内容中的 auto 引用后写入
- * - 其他文件 → 直接复制
+ * - 文本文件 → 检查并替换内容中的 auto 引用
+ * - 二进制文件 → 直接复制
  *
  * @param {string} commonDir - common 模板目录
  * @param {string} projectDir - 项目目标目录
  * @param {'ts' | 'js'} lang - 语言类型
  */
-async function copyCommonFiles(
+export async function copyCommonFiles(
   commonDir: string,
   projectDir: string,
   lang: 'ts' | 'js'
@@ -140,11 +169,15 @@ async function copyCommonFiles(
     const destPath = path.join(projectDir, destFileName)
 
     await fs.ensureDir(path.dirname(destPath))
-    // 所有文件都可能包含 auto 引用（如 index.html 中的 script src），统一替换内容
-    const content = fs.readFileSync(srcPath, 'utf-8')
-    const replaced = replaceAutoExtInContent(content)
-    if (content !== replaced) {
-      await fs.writeFile(destPath, replaced)
+
+    if (isTextFile(entry.name)) {
+      const content = fs.readFileSync(srcPath, 'utf-8')
+      const replaced = replaceAutoExtInContent(content)
+      if (content !== replaced) {
+        await fs.writeFile(destPath, replaced)
+      } else {
+        await fs.copy(srcPath, destPath)
+      }
     } else {
       await fs.copy(srcPath, destPath)
     }
@@ -167,7 +200,7 @@ async function copyCommonFiles(
  * - 如果是目录，则递归调用自身处理子目录
  * - 如果是 JSON 文件且目标路径已存在，则读取两个 JSON 文件并深度合并后写入；否则直接复制文件
  */
-async function copyLangSpecificFiles(langDir: string, projectDir: string): Promise<void> {
+export async function copyLangSpecificFiles(langDir: string, projectDir: string): Promise<void> {
   const entries = fs.readdirSync(langDir, { withFileTypes: true })
 
   for (const entry of entries) {
@@ -213,7 +246,7 @@ async function generateProject(options: ProjectOptions): Promise<void> {
   }
 
   const commonDir = path.join(templateDir, 'common')
-  const langDir = path.join(templateDir, lang === 'ts' ? 'typescript' : 'javascript')
+  const langDir = path.join(templateDir, LANG_DIR_MAP[lang])
 
   // 先复制 common 基础文件，再叠加语言特定文件
   await copyCommonFiles(commonDir, projectDir, lang)

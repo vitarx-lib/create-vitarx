@@ -9,7 +9,5 @@
   "jsxSingleQuote": true,
   "trailingComma": "none",
   "bracketSameLine": false,
-  "arrowParens": "always",
-  "embeddedLanguageFormatting": "auto"
+  "arrowParens": "always"
 }
-

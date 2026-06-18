@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "lint": "eslint --fix src/"
   },
   "dependencies": {
     "vitarx": "^4.0.2",
@@ -15,8 +16,9 @@
   },
   "devDependencies": {
     "eslint": "^10.0.0",
+    "eslint-plugin-vitarx": "^0.1.0",
     "prettier": "^3.8.3",
-    "@vitarx/plugin-vite": "^1.0.2",
-    "vite": "^8.0.14"
+    "vite": "^8.0.14",
+    "@vitarx/plugin-vite": "^1.0.2"
   }
 }

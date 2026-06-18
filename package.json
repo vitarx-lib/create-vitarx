@@ -20,7 +20,7 @@
     "index.cjs"
   ],
   "scripts": {
-    "build": "tsc --noEmit && vite build",
+    "build": "vitest run && tsc --noEmit && vite build",
     "test": "npm run build && node index.cjs",
     "push": "npx change-push"
   },
@@ -44,15 +44,19 @@
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
     "@commitlint/types": "^21.0.1",
+    "@eslint/js": "^10.0.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^25.9.1",
     "@types/prompts": "^2.4.9",
-    "@vitarx/plugin-vite": "^1.0.0",
+    "@vitarx/plugin-vite": "^1.0.2",
+    "eslint": "^10.5.0",
+    "eslint-plugin-vitarx": "^0.1.0",
     "husky": "^9.1.7",
-    "prettier": "^3.5.3",
+    "prettier": "^3.8.4",
     "typescript": "^6.0.3",
-    "vitarx": "^4.0.0",
-    "vitarx-router": "^4.0.0",
+    "typescript-eslint": "^8.61.1",
+    "vitarx": "^4.0.2",
+    "vitarx-router": "^4.0.6",
     "vite": "^8.0.14",
     "vitest": "^4.1.7"
   }

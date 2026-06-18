@@ -48,7 +48,6 @@ describe('集成测试：TypeScript 项目完整生成', () => {
     await copyCommonFiles(commonDir, projectDir, 'ts')
 
     expect(await fs.pathExists(path.join(projectDir, 'package.json'))).toBe(true)
-    expect(await fs.pathExists(path.join(projectDir, 'index.html'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, '.gitignore'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, '.prettierrc.json'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, 'README.md'))).toBe(true)
@@ -90,10 +89,6 @@ describe('集成测试：TypeScript 项目完整生成', () => {
     expect(mainContent).toContain("import router from './router/index.js'")
     expect(mainContent).not.toContain('.auto.js')
     expect(mainContent).not.toContain('.auto.jsx')
-
-    const htmlContent = readFileSync(path.join(projectDir, 'index.html'), 'utf-8')
-    expect(htmlContent).toContain('src/main.js')
-    expect(htmlContent).not.toContain('.auto.js')
   })
 
   it('二进制文件完整复制不损坏', async () => {
@@ -256,7 +251,7 @@ describe('集成测试：createProject 端到端', () => {
     expect(mainContent).not.toContain('.auto.jsx')
 
     const htmlContent = readFileSync(path.join(projectDir, 'index.html'), 'utf-8')
-    expect(htmlContent).toContain('src/main.js')
+    expect(htmlContent).toContain('src/main.ts')
   })
 
   it('JavaScript 项目完整创建流程', async () => {

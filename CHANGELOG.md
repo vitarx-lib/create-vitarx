@@ -1,4 +1,4 @@
-# [4.0.0](https://github.com/vitarx-lib/create-vitarx/compare/v3.0.0...v4.0.0) (2026-05-31)
+# [4.1.0](https://github.com/vitarx-lib/create-vitarx/compare/v4.0.0...v4.1.0) (2026-06-19)
 
 
 ### Bug Fixes
@@ -10,6 +10,10 @@
 ### Features
 
 * **cli:** 重构项目生成器重写命令行和模板处理逻辑 ([6874cb8](https://github.com/vitarx-lib/create-vitarx/commit/6874cb82ecd45a8faef88a9736ac7ecc8fdd0fef))
+* **eslint:** 添加默认 ESLint 配置并更新依赖版本 ([16d0392](https://github.com/vitarx-lib/create-vitarx/commit/16d03922194aface6bc90c5c0dd587119d3843e4))
+* **prompt:** 添加文件路由项目模板选项 ([e25a70e](https://github.com/vitarx-lib/create-vitarx/commit/e25a70e49dc90c4a6473006fedb587b684477f64))
+* **router:** 集成 vitarx-router 插件到 Vite 配置中 ([3a2d8c5](https://github.com/vitarx-lib/create-vitarx/commit/3a2d8c57ac53d2b48283394b6b80f0cbb1c63dbe))
+* **template:** 初始化文件路由模板及基础配置 ([81b76a3](https://github.com/vitarx-lib/create-vitarx/commit/81b76a3735549110746ddc6c7e09cc24a9ce737c))
 
 # [3.0.0](https://github.com/vitarx-lib/create-vitarx/compare/v2.0.0...v3.0.0) (2025-09-07)
 
@@ -28,4 +32,3 @@
 * **prompt:** 增加项目模板选择功能并优化目录存在检查 ([39cbd8f](https://github.com/vitarx-lib/create-vitarx/commit/39cbd8f272908890af412ebda35b40e9a9dfa84c))
 * 创建 Vitarx 项目初始化脚本 ([26641e7](https://github.com/vitarx-lib/create-vitarx/commit/26641e7bcb605292d607134f2b19a4b28b5dc334))
 * 初始化 create-vitarx 项目 ([b76201b](https://github.com/vitarx-lib/create-vitarx/commit/b76201b4c40454307dc69365c8fb7c5ac10558bc))
-

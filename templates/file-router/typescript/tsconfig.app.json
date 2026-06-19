@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    // 编译为ES2020版本
+    "target": "ES2020",
+    // 指定ES模块使用的语言版本
+    "module": "ESNext",
+    // 指定编译环境的 API，包含 ES2020 标准、DOM API 及 DOM 的可迭代特性
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+
+    /* 构建选项 */
+    "useDefineForClassFields": true, // 发出符合 ECMAScript 标准的类字段
+    "noEmit": true, // 禁止输出，运行时产物由 vite 生成
+    "moduleResolution": "bundler",  // 模块解析模式
+    "isolatedModules": true,  // 确保每个文件都能安全转译，无需依赖其他导入
+    "jsx": "preserve", // 必须设置为 preserve，JSX 由 vite + @vitarx/plugin-vite 处理
+
+    /* 类型校验 - (视情况开启) */
+    "strict": true, // 严格模式
+    "skipLibCheck": true, // 跳过对所有 .d.ts 文件进行类型检查
+    "noImplicitAny": true, // 隐式 any 类型报告为错误
+    "noImplicitReturns": true, // 隐式返回报告为错误
+    "noUnusedLocals": true, // 未使用的变量报告为错误
+    "noImplicitThis": true, // 隐式 this 类型报告为错误
+    "strictNullChecks": true, // 严格的空值检查
+    "noUnusedParameters": true, // 未使用的参数报告为错误
+    "noUncheckedIndexedAccess": true, // 未检查的索引访问报告为错误
+    "noFallthroughCasesInSwitch": true, // 为 switch 语句中的故障案例启用错误报告
+    "forceConsistentCasingInFileNames": true, // 确保导入时的大小写正确
+    "noPropertyAccessFromIndexSignature": true, // 从索引签名访问属性报告为错误
+
+    /* 别名路径配置 */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "env.d.ts"]
+}

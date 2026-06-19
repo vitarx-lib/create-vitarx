@@ -27,14 +27,17 @@ App (root)
 │  ├─ pages # 页面
 │  │  ├─ About
 │  │  │  └─ index.tsx # /about
-│  │  └─ index.tsx # /
+│  │  └─ Home
+│  │     └─ index.tsx # /
 │  ├─ router # 路由
-│  │  ├─ index.ts
-│  │  └─ routes.ts
+│  │  ├─ index.ts # 路由器实例
+│  │  └─ routes.ts # 路由线路定义文件
 │  ├─ App.tsx # 根组件
 │  └─ main.ts # 入口文件
 ├─ .gitignore # Git忽略文件配置
+├─ .prettierignore # 代码格式化忽略文件配置
 ├─ .prettierrc.json # 代码格式化配置文件
+├─ eslint.config.ts # 代码检查配置文件
 ├─ README.md # 项目说明文件
 ├─ env.d.ts # 环境变量声明文件
 ├─ index.html # 项目入口HTML文件

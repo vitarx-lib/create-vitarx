@@ -65,7 +65,9 @@ describe('集成测试：TypeScript 项目完整生成', () => {
     expect(await fs.pathExists(path.join(projectDir, 'vite.config.ts'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'index.ts'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'routes.ts'))).toBe(true)
-    expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'index.tsx'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'Home', 'index.tsx'))).toBe(
+      true
+    )
     expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'About', 'index.tsx'))).toBe(
       true
     )
@@ -113,6 +115,8 @@ describe('集成测试：TypeScript 项目完整生成', () => {
     expect(await fs.pathExists(path.join(projectDir, 'tsconfig.app.json'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, 'tsconfig.node.json'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, 'env.d.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'eslint.config.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'index.html'))).toBe(true)
   })
 
   it('package.json 深度合并（common + typescript）', async () => {
@@ -131,11 +135,14 @@ describe('集成测试：TypeScript 项目完整生成', () => {
     expect(pkg.scripts.build).toBe('tsc --noEmit && vite build')
     expect(pkg.scripts.preview).toBe('vite preview')
     expect(pkg.scripts.format).toBe('prettier --write src/')
+    expect(pkg.scripts.lint).toBe('eslint --fix src/')
 
     expect(pkg.dependencies.vitarx).toBeDefined()
     expect(pkg.dependencies['vitarx-router']).toBeDefined()
 
     expect(pkg.devDependencies.prettier).toBeDefined()
+    expect(pkg.devDependencies.eslint).toBeDefined()
+    expect(pkg.devDependencies['eslint-plugin-vitarx']).toBeDefined()
     expect(pkg.devDependencies.typescript).toBeDefined()
     expect(pkg.devDependencies['@types/node']).toBeDefined()
     expect(pkg.devDependencies['@vitarx/plugin-vite']).toBeDefined()
@@ -174,7 +181,9 @@ describe('集成测试：JavaScript 项目完整生成', () => {
     expect(await fs.pathExists(path.join(projectDir, 'vite.config.js'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'index.js'))).toBe(true)
     expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'routes.js'))).toBe(true)
-    expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'index.jsx'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'Home', 'index.jsx'))).toBe(
+      true
+    )
     expect(
       await fs.pathExists(path.join(projectDir, 'src', 'components', 'Counter', 'index.jsx'))
     ).toBe(true)
@@ -190,6 +199,8 @@ describe('集成测试：JavaScript 项目完整生成', () => {
     await copyLangSpecificFiles(jsDir, projectDir)
 
     expect(await fs.pathExists(path.join(projectDir, 'jsconfig.json'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'eslint.config.js'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'index.html'))).toBe(true)
   })
 
   it('JavaScript 项目不包含 TypeScript 文件', async () => {
@@ -211,8 +222,11 @@ describe('集成测试：JavaScript 项目完整生成', () => {
 
     const pkg = await fs.readJson(path.join(projectDir, 'package.json'))
     expect(pkg.scripts.build).toBe('vite build')
+    expect(pkg.scripts.lint).toBe('eslint --fix src/')
     expect(pkg.devDependencies.typescript).toBeUndefined()
     expect(pkg.devDependencies['@types/node']).toBeUndefined()
+    expect(pkg.devDependencies.eslint).toBeDefined()
+    expect(pkg.devDependencies['@eslint/js']).toBeDefined()
   })
 })
 
@@ -337,5 +351,210 @@ describe('集成测试：createProject 端到端', () => {
 
     const output = consoleSpy.mock.calls.map((args: string[]) => args.join(' ')).join('\n')
     expect(output).toMatch(/cd\s+my-app/)
+  })
+})
+
+describe('集成测试：file-router 模板 TypeScript 项目', () => {
+  const projectDir = path.join(TMP_ROOT, 'file-router-ts')
+
+  beforeEach(async () => {
+    await fs.ensureDir(TMP_ROOT)
+  })
+
+  afterEach(async () => {
+    await fs.remove(TMP_ROOT)
+  })
+
+  it('auto 文件后缀正确转换为 TypeScript 后缀', async () => {
+    const commonDir = path.join(TEMPLATES_DIR, 'file-router', 'common')
+    await copyCommonFiles(commonDir, projectDir, 'ts')
+
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'main.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'App.tsx'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'vite.config.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'index.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'Home', 'index.tsx'))).toBe(
+      true
+    )
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'About', 'index.tsx'))).toBe(
+      true
+    )
+    expect(
+      await fs.pathExists(path.join(projectDir, 'src', 'components', 'Counter', 'index.tsx'))
+    ).toBe(true)
+    expect(
+      await fs.pathExists(path.join(projectDir, 'src', 'components', 'Footer', 'index.tsx'))
+    ).toBe(true)
+
+    // file-router 模板没有 routes.auto.js，不生成 routes.ts
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'routes.ts'))).toBe(false)
+  })
+
+  it('router/index.ts 使用 auto-routes 而非手动路由', async () => {
+    const commonDir = path.join(TEMPLATES_DIR, 'file-router', 'common')
+    await copyCommonFiles(commonDir, projectDir, 'ts')
+
+    const routerContent = readFileSync(path.join(projectDir, 'src', 'router', 'index.ts'), 'utf-8')
+    expect(routerContent).toContain('vitarx-router/auto-routes')
+    expect(routerContent).toContain('handleHotUpdate')
+    expect(routerContent).not.toContain('.auto.js')
+  })
+
+  it('TypeScript 特定文件复制到项目目录', async () => {
+    const commonDir = path.join(TEMPLATES_DIR, 'file-router', 'common')
+    const tsDir = path.join(TEMPLATES_DIR, 'file-router', 'typescript')
+    await copyCommonFiles(commonDir, projectDir, 'ts')
+    await copyLangSpecificFiles(tsDir, projectDir)
+
+    expect(await fs.pathExists(path.join(projectDir, 'tsconfig.json'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'tsconfig.app.json'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'tsconfig.node.json'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'env.d.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'eslint.config.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'index.html'))).toBe(true)
+  })
+
+  it('package.json 深度合并（common + typescript）', async () => {
+    const commonDir = path.join(TEMPLATES_DIR, 'file-router', 'common')
+    const tsDir = path.join(TEMPLATES_DIR, 'file-router', 'typescript')
+    await copyCommonFiles(commonDir, projectDir, 'ts')
+    await copyLangSpecificFiles(tsDir, projectDir)
+
+    const pkg = await fs.readJson(path.join(projectDir, 'package.json'))
+    expect(pkg.scripts.build).toBe('tsc --noEmit && vite build')
+    expect(pkg.scripts.lint).toBe('eslint --fix src/')
+    expect(pkg.devDependencies.typescript).toBeDefined()
+    expect(pkg.devDependencies.eslint).toBeDefined()
+    expect(pkg.devDependencies['eslint-plugin-vitarx']).toBeDefined()
+  })
+})
+
+describe('集成测试：file-router 模板 JavaScript 项目', () => {
+  const projectDir = path.join(TMP_ROOT, 'file-router-js')
+
+  beforeEach(async () => {
+    await fs.ensureDir(TMP_ROOT)
+  })
+
+  afterEach(async () => {
+    await fs.remove(TMP_ROOT)
+  })
+
+  it('auto 文件后缀正确转换为 JavaScript 后缀', async () => {
+    const commonDir = path.join(TEMPLATES_DIR, 'file-router', 'common')
+    await copyCommonFiles(commonDir, projectDir, 'js')
+
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'main.js'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'App.jsx'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'vite.config.js'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'index.js'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'pages', 'Home', 'index.jsx'))).toBe(
+      true
+    )
+    expect(
+      await fs.pathExists(path.join(projectDir, 'src', 'components', 'Counter', 'index.jsx'))
+    ).toBe(true)
+
+    // file-router 模板没有 routes.auto.js，不生成 routes.js
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'routes.js'))).toBe(false)
+  })
+
+  it('JavaScript 特定文件复制到项目目录', async () => {
+    const commonDir = path.join(TEMPLATES_DIR, 'file-router', 'common')
+    const jsDir = path.join(TEMPLATES_DIR, 'file-router', 'javascript')
+    await copyCommonFiles(commonDir, projectDir, 'js')
+    await copyLangSpecificFiles(jsDir, projectDir)
+
+    expect(await fs.pathExists(path.join(projectDir, 'jsconfig.json'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'eslint.config.js'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'index.html'))).toBe(true)
+  })
+
+  it('package.json 不包含 TypeScript 依赖', async () => {
+    const commonDir = path.join(TEMPLATES_DIR, 'file-router', 'common')
+    const jsDir = path.join(TEMPLATES_DIR, 'file-router', 'javascript')
+    await copyCommonFiles(commonDir, projectDir, 'js')
+    await copyLangSpecificFiles(jsDir, projectDir)
+
+    const pkg = await fs.readJson(path.join(projectDir, 'package.json'))
+    expect(pkg.scripts.build).toBe('vite build')
+    expect(pkg.scripts.lint).toBe('eslint --fix src/')
+    expect(pkg.devDependencies.typescript).toBeUndefined()
+    expect(pkg.devDependencies.eslint).toBeDefined()
+    expect(pkg.devDependencies['@eslint/js']).toBeDefined()
+  })
+})
+
+describe('集成测试：file-router 模板 createProject 端到端', () => {
+  const projectDir = path.join(TMP_ROOT, 'file-router-e2e')
+
+  beforeEach(async () => {
+    await fs.ensureDir(TMP_ROOT)
+  })
+
+  afterEach(async () => {
+    await fs.remove(TMP_ROOT)
+  })
+
+  it('TypeScript 文件路由项目完整创建流程', async () => {
+    const options = createOptions({
+      name: 'my-file-router-app',
+      template: 'file-router',
+      templateDir: path.join(TEMPLATES_DIR, 'file-router'),
+      lang: 'ts',
+      projectDir
+    })
+
+    await createProject(options)
+
+    const pkg = await fs.readJson(path.join(projectDir, 'package.json'))
+    expect(pkg.name).toBe('my-file-router-app')
+    expect(pkg.scripts.build).toBe('tsc --noEmit && vite build')
+    expect(pkg.devDependencies.typescript).toBeDefined()
+
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'main.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'App.tsx'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'tsconfig.json'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'eslint.config.ts'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'index.html'))).toBe(true)
+
+    // 文件路由模板不包含 routes 文件
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'routes.ts'))).toBe(false)
+
+    const routerContent = readFileSync(path.join(projectDir, 'src', 'router', 'index.ts'), 'utf-8')
+    expect(routerContent).toContain('vitarx-router/auto-routes')
+
+    const htmlContent = readFileSync(path.join(projectDir, 'index.html'), 'utf-8')
+    expect(htmlContent).toContain('src/main.ts')
+  })
+
+  it('JavaScript 文件路由项目完整创建流程', async () => {
+    const options = createOptions({
+      name: 'my-file-router-js-app',
+      template: 'file-router',
+      templateDir: path.join(TEMPLATES_DIR, 'file-router'),
+      lang: 'js',
+      projectDir
+    })
+
+    await createProject(options)
+
+    const pkg = await fs.readJson(path.join(projectDir, 'package.json'))
+    expect(pkg.name).toBe('my-file-router-js-app')
+    expect(pkg.scripts.build).toBe('vite build')
+    expect(pkg.devDependencies.typescript).toBeUndefined()
+
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'main.js'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'App.jsx'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'jsconfig.json'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'eslint.config.js'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'index.html'))).toBe(true)
+    expect(await fs.pathExists(path.join(projectDir, 'tsconfig.json'))).toBe(false)
+
+    // 文件路由模板不包含 routes 文件
+    expect(await fs.pathExists(path.join(projectDir, 'src', 'router', 'routes.js'))).toBe(false)
+
+    const htmlContent = readFileSync(path.join(projectDir, 'index.html'), 'utf-8')
+    expect(htmlContent).toContain('src/main.js')
   })
 })

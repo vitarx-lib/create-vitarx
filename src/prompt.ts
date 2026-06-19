@@ -202,7 +202,14 @@ async function promptForTemplate(): Promise<string> {
     type: 'select',
     name: 'template',
     message: '项目模板:',
-    choices: [{ title: '默认模板', value: 'default', description: '基础的Vitarx项目模板' }]
+    choices: [
+      { title: '默认项目', value: 'default', description: '基础的Vitarx项目模板' },
+      {
+        title: '文件路由',
+        value: 'file-router',
+        description: '使用文件约定路由的Vitarx项目模板'
+      }
+    ]
   })
   return template ?? 'default'
 }

@@ -5,7 +5,7 @@ const routes = defineRoutes(
   {
     path: '/',
     name: 'home',
-    component: lazy(() => import('@/pages/index.auto.jsx'))
+    component: lazy(() => import('@/pages/Home/index.auto.jsx'))
   },
   {
     path: '/about',

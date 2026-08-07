@@ -1,6 +1,6 @@
 {
   "name": "create-vitarx",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "cli tool for quickly creating vitarx projects",
   "author": "ZhuChongLin <8210856@qq.com>",
   "license": "MIT",

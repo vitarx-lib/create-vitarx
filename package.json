@@ -48,15 +48,15 @@
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^25.9.1",
     "@types/prompts": "^2.4.9",
-    "@vitarx/plugin-vite": "^1.0.2",
+    "@vitarx/plugin-vite": "^1.0.5",
     "eslint": "^10.5.0",
     "eslint-plugin-vitarx": "^0.1.0",
     "husky": "^9.1.7",
     "prettier": "^3.8.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.61.1",
-    "vitarx": "^4.0.2",
-    "vitarx-router": "^4.0.6",
+    "vitarx": "^4.0.6",
+    "vitarx-router": "^4.0.8",
     "vite": "^8.0.14",
     "vitest": "^4.1.7"
   }

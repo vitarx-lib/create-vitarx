@@ -43,14 +43,14 @@ importers:
         specifier: ^2.4.9
         version: 2.4.9
       '@vitarx/plugin-vite':
-        specifier: ^1.0.2
-        version: 1.0.2(vitarx@4.0.2)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1))
+        specifier: ^1.0.5
+        version: 1.0.5(vitarx@4.0.6)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1))
       eslint:
         specifier: ^10.5.0
         version: 10.5.0(jiti@2.6.1)
       eslint-plugin-vitarx:
         specifier: ^0.1.0
-        version: 0.1.0(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.3)(vitarx@4.0.2)
+        version: 0.1.0(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.3)(vitarx@4.0.6)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -64,11 +64,11 @@ importers:
         specifier: ^8.61.1
         version: 8.61.1(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.3)
       vitarx:
-        specifier: ^4.0.2
-        version: 4.0.2
-      vitarx-router:
         specifier: ^4.0.6
-        version: 4.0.6(vitarx@4.0.2)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1))
+        version: 4.0.6
+      vitarx-router:
+        specifier: ^4.0.8
+        version: 4.0.8(vitarx@4.0.6)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1))
       vite:
         specifier: ^8.0.14
         version: 8.0.14(@types/node@25.9.1)(jiti@2.6.1)
@@ -484,26 +484,26 @@ packages:
     resolution: {integrity: sha512-6fJ9MHWtK14C1DSkiMlHUSOmrVebL7150xZJBlJiL62jjhIA4JmOq6flwBgDxIdBKKdoiZRel+dfPD5MLfny3w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@vitarx/plugin-vite@1.0.2':
-    resolution: {integrity: sha512-61HdNkwT97tnQ6xi17V03VBgLUtuBaNntYB2j4Uv+0bhlL4usk9Fo1ZSA+KQmBtuiDgWN+vjlfCP/Xr+uR1ygQ==}
+  '@vitarx/plugin-vite@1.0.5':
+    resolution: {integrity: sha512-KfWoGHDCPAacb7gZ8AEgeBfwkAjXkiQLi+eVOB7rsqBMkmKDSE281WiCyGQkfo6jxmMuNQQ2FSqcfMPlaNm5eQ==}
     peerDependencies:
       vitarx: ^4.0.0
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
 
-  '@vitarx/responsive@4.0.2':
-    resolution: {integrity: sha512-6c5hOseD6NiCdcqhXpHTZrme7wF0ahMcvdGXSySVtbMVYkcPvovYajtdiotiiOKSLN/NDy3p6lpuaGsL9tgioA==}
+  '@vitarx/responsive@4.0.6':
+    resolution: {integrity: sha512-5ePwl6nXXqtgjJkXSuybfoYrcbx86tyuwGAupnylPh+yRoxmkVczPmkzZC/V//VWGBUUewkvFuzz6mq/lTX+Bw==}
 
-  '@vitarx/runtime-core@4.0.2':
-    resolution: {integrity: sha512-m18M+ZSlSUminFh4ibJCNNzHvvFutNy9aJK1tkx3k15kRWgp1xs4oPANEE3xMKZvI+FiqXYNu8SCrmBJbn2FYA==}
+  '@vitarx/runtime-core@4.0.6':
+    resolution: {integrity: sha512-Ca3G+CPQGqLNWKSSkov7tXOj55rIB1xJm0bwXf1eSN9xZ2ivj3MH/npFGSkC5q8/83y/MwbR26g11jgZRxl2NQ==}
 
-  '@vitarx/runtime-dom@4.0.2':
-    resolution: {integrity: sha512-dPecYcPQMbOGZDziBPyS+P2htcVy5BHh6INEGp86+QcO/n2F02YLNoXYLdp6XLRQUFAf6Un+BmlQfi06xaGUyQ==}
+  '@vitarx/runtime-dom@4.0.6':
+    resolution: {integrity: sha512-cEhFNuAVe4PBGblwPNYkv/5ke1mnO7pAcWTZ+Euxby0QSm0vQ56U0Z+MZ431LJCt+9TDNcFseoXgWlrdz/Sd1Q==}
 
-  '@vitarx/runtime-ssr@4.0.2':
-    resolution: {integrity: sha512-nREn8HT3nRxvfpK5OYiCBl1fnqJD3+3pac4hEZd6nNLZZYKY0EgdBRK0RZD3ZHPIq+B+yRHLUt+He3DnNYRIcQ==}
+  '@vitarx/runtime-ssr@4.0.6':
+    resolution: {integrity: sha512-o9jMfRCUn6PyAMEpLIKwyA8MEifvW4k0T7L4L04Jw7BdnYyvA/ZUYVKTH3iiHci1P12ecf6hs0Bd92pr/xJnbQ==}
 
-  '@vitarx/utils@4.0.2':
-    resolution: {integrity: sha512-BgQ2jxVmrZqUADsW3qKfrDdQzQmIuAnW8HITl0POMPCMr3FnJ3xiXXaJYRdS5R/bDJxz68Ij1X+eSTFzYAeMyA==}
+  '@vitarx/utils@4.0.6':
+    resolution: {integrity: sha512-o/D74NNjalHbgHx+dt9rIFrSwDSTscflHKs0UOWEegnS3j244UIgIsedwruY9Skw3r7IC7RPbnSDvq/ebHfP2A==}
 
   '@vitest/expect@4.1.7':
     resolution: {integrity: sha512-1R+tw0ortHEbZDGMymm+pN7/AFQ/RkFFdtd7EN+VBpynKmLbP8A3rpEXdshBJ7+8hQ9zBJh/i1s0yKNtxAnU7w==}
@@ -1199,8 +1199,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  vitarx-router@4.0.6:
-    resolution: {integrity: sha512-DkrsFVov+OPSnPinHxzGupNoSw5rWIQ0YwzGSQgf5kSy4Z4dUl9klYnQSrTyXUPOiNaYJy8Pw2YrPB/GkooZ1w==}
+  vitarx-router@4.0.8:
+    resolution: {integrity: sha512-oQ9BZ8DhMC1GK2Ru4jrxDIPZfcxzp4pfKPRs9ybxmXW1ZrS3QBtuzX1QJOU+6VgrseensCDm/3Ag6zxujnbAzA==}
     peerDependencies:
       vitarx: ^4.0.0
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -1210,8 +1210,8 @@ packages:
       vite:
         optional: true
 
-  vitarx@4.0.2:
-    resolution: {integrity: sha512-T72mR35+ps/S5d6xi3E+9rzv9eBS1jsHJakNTmc8O78dLAOMdR5Qr/IOQ001kmt46X02IjcfJD0eCT3neG40sw==}
+  vitarx@4.0.6:
+    resolution: {integrity: sha512-3j+lpMV3IvqqC+Ut1l2hxy+81KgUqw29famPCgbU2D/d41DG7ARs+6fQAGGtSlcgx4wuW+F7mbDV6yvi2bQ/kQ==}
 
   vite@8.0.14:
     resolution: {integrity: sha512-s4BJJ+5y1pYL6Otw51FHhVJQhPnuRinKig64g/1+EUNaJsd3gCKdD31IPFvswUgW9/60QT9oFHbZHbQK5imcxw==}
@@ -1771,7 +1771,7 @@ snapshots:
       '@typescript-eslint/types': 8.61.1
       eslint-visitor-keys: 5.0.1
 
-  '@vitarx/plugin-vite@1.0.2(vitarx@4.0.2)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1))':
+  '@vitarx/plugin-vite@1.0.5(vitarx@4.0.6)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1))':
     dependencies:
       '@babel/generator': 7.29.7
       '@babel/parser': 7.29.7
@@ -1779,35 +1779,35 @@ snapshots:
       '@babel/types': 7.29.7
       acorn: 8.16.0
       acorn-walk: 8.3.5
-      vitarx: 4.0.2
+      vitarx: 4.0.6
       vite: 8.0.14(@types/node@25.9.1)(jiti@2.6.1)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitarx/responsive@4.0.2':
+  '@vitarx/responsive@4.0.6':
     dependencies:
-      '@vitarx/utils': 4.0.2
+      '@vitarx/utils': 4.0.6
 
-  '@vitarx/runtime-core@4.0.2':
+  '@vitarx/runtime-core@4.0.6':
     dependencies:
-      '@vitarx/responsive': 4.0.2
-      '@vitarx/utils': 4.0.2
+      '@vitarx/responsive': 4.0.6
+      '@vitarx/utils': 4.0.6
 
-  '@vitarx/runtime-dom@4.0.2':
+  '@vitarx/runtime-dom@4.0.6':
     dependencies:
-      '@vitarx/responsive': 4.0.2
-      '@vitarx/runtime-core': 4.0.2
-      '@vitarx/utils': 4.0.2
+      '@vitarx/responsive': 4.0.6
+      '@vitarx/runtime-core': 4.0.6
+      '@vitarx/utils': 4.0.6
       csstype: 3.2.3
 
-  '@vitarx/runtime-ssr@4.0.2':
+  '@vitarx/runtime-ssr@4.0.6':
     dependencies:
-      '@vitarx/responsive': 4.0.2
-      '@vitarx/runtime-core': 4.0.2
-      '@vitarx/runtime-dom': 4.0.2
-      '@vitarx/utils': 4.0.2
+      '@vitarx/responsive': 4.0.6
+      '@vitarx/runtime-core': 4.0.6
+      '@vitarx/runtime-dom': 4.0.6
+      '@vitarx/utils': 4.0.6
 
-  '@vitarx/utils@4.0.2': {}
+  '@vitarx/utils@4.0.6': {}
 
   '@vitest/expect@4.1.7':
     dependencies:
@@ -1980,11 +1980,11 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-plugin-vitarx@0.1.0(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.3)(vitarx@4.0.2):
+  eslint-plugin-vitarx@0.1.0(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.3)(vitarx@4.0.6):
     dependencies:
       '@typescript-eslint/utils': 8.61.1(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.3)
       eslint: 10.5.0(jiti@2.6.1)
-      vitarx: 4.0.2
+      vitarx: 4.0.6
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -2431,7 +2431,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vitarx-router@4.0.6(vitarx@4.0.2)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1)):
+  vitarx-router@4.0.8(vitarx@4.0.6)(vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1)):
     dependencies:
       '@babel/generator': 7.29.7
       '@babel/parser': 7.29.7
@@ -2439,18 +2439,18 @@ snapshots:
       chalk: 5.6.2
       micromatch: 4.0.8
     optionalDependencies:
-      vitarx: 4.0.2
+      vitarx: 4.0.6
       vite: 8.0.14(@types/node@25.9.1)(jiti@2.6.1)
     transitivePeerDependencies:
       - supports-color
 
-  vitarx@4.0.2:
+  vitarx@4.0.6:
     dependencies:
-      '@vitarx/responsive': 4.0.2
-      '@vitarx/runtime-core': 4.0.2
-      '@vitarx/runtime-dom': 4.0.2
-      '@vitarx/runtime-ssr': 4.0.2
-      '@vitarx/utils': 4.0.2
+      '@vitarx/responsive': 4.0.6
+      '@vitarx/runtime-core': 4.0.6
+      '@vitarx/runtime-dom': 4.0.6
+      '@vitarx/runtime-ssr': 4.0.6
+      '@vitarx/utils': 4.0.6
 
   vite@8.0.14(@types/node@25.9.1)(jiti@2.6.1):
     dependencies:
